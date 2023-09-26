@@ -1,6 +1,8 @@
+version: '3.5'
+
 services:
   frontend:
-    image: frontend
+    image: sieunhantanbao/frontend
     ports:
       - 3000:3000
     stdin_open: true
@@ -15,7 +17,7 @@ services:
 
   backend:
     restart: always
-    image: backend
+    image: sieunhantanbao/backend
     volumes:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
