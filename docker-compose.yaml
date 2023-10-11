@@ -1,46 +1,45 @@
-version: "3.5"
+version: '3.5'
 
 services:
-  frontend:
+  containerapp-webapp:
+    container_name: containerapp-webapp
+    image: containerapp-webapp
     build:
-      context: frontend
-      target: development
+      context: src/ContainerApp.WebApp
+      dockerfile: Dockerfile
+    environment:
+      - ApiAddress=http://containerapp-todoapi
     ports:
-      - 3000:3000
-    stdin_open: true
-    volumes:
-      - ./frontend:/usr/src/app
-      - /usr/src/app/node_modules
-    restart: always
-    networks:
-      - react-express
+      - 7171:80
+    links:
+      - containerapp-todoapi
+      - containerapp-weatherapi
     depends_on:
-      - backend
-
-  backend:
-    restart: always
+      - containerapp-todoapi
+      - containerapp-weatherapi
+  containerapp-todoapi:
+    container_name: containerapp-todoapi
+    image: containerapp-todoapi
+    links:
+      - containerapp-postgresdb
+    depends_on:
+      - containerapp-postgresdb
     build:
-      context: backend
-      target: development
+      context: src/ContainerApp.TodoApi
+      dockerfile: Dockerfile
+    ports:
+      - 7272:80
+    environment:
+      - MyDbContext="Server=containerapp-postgresdb;Database=TodoItem_DB;User Id=postgres;Password=postgres;"
+  containerapp-postgresdb:
+    container_name: containerapp-postgresdb
+    image: postgres:15.4-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     volumes:
-      - ./backend:/usr/src/app
-      - /usr/src/app/node_modules
-    depends_on:
-      - mongo
-    networks:
-      - express-mongo
-      - react-express
-    expose: 
-      - 3000
-  mongo:
-    restart: always
-    image: mongo:4.2.0
-    volumes:
-      - ./data:/data/db
-    networks:
-      - express-mongo
-    expose:
-      - 27017
-networks:
-  react-express:
-  express-mongo:
+      - postgresdata-volume:/var/lib/postgresql/data
+volumes:
+  postgresdata-volume:
