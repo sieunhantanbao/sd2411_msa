@@ -1,6 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /app
 
+EXPOSE 80
+ENV ASPNETCORE_URLS=http://*:80
+
 # Copy everything else and build
 COPY . .
 
