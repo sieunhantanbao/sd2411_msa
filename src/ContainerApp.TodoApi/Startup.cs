@@ -30,11 +30,7 @@ namespace ContainerApp.TodoApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            foreach (DictionaryEntry e in System.Environment.GetEnvironmentVariables())
-            {
-                Console.WriteLine("ENVIRONMENT VAR: " + e.Key.ToString() + "=" + e.Value?.ToString());
-            }
-            string connectionString = Environment.GetEnvironmentVariable("MYDBCONTEXT") ?? Configuration["MyDbContext"];
+            string connectionString = Environment.GetEnvironmentVariable("MyDbContext") ?? Configuration["MyDbContext"];
             services.AddDbContext<MyDbContext>(options =>
             {
 
