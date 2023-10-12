@@ -66,17 +66,17 @@ namespace ContainerApp.TodoApi
             }
 
             // Apply migrations at runtime
-            using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                try
-                {
-                     scope.ServiceProvider.GetService<MyDbContext>().Database.Migrate();
-                }
-                catch
-                {
-                    // Do nothing in case the migration has been applied
-                }
-            }
+            //using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            //{
+            //    try
+            //    {
+            //         scope.ServiceProvider.GetService<MyDbContext>().Database.Migrate();
+            //    }
+            //    catch
+            //    {
+            //        // Do nothing in case the migration has been applied
+            //    }
+            //}
 
             app.UseHttpsRedirection();
 
