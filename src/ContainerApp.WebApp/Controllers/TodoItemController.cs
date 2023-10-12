@@ -21,7 +21,7 @@ namespace ContainerApp.WebApp.Controllers
 
         public TodoItemController(ILogger<TodoItemController> logger, IConfiguration config)
         {
-            _todoAPI = Environment.GetEnvironmentVariable("ApiAddress") ?? config["ApiAddress"].ToString();
+            _todoAPI = Environment.GetEnvironmentVariable("APIADDRESS") ?? config["ApiAddress"].ToString();
             _logger = logger;
         }
 
