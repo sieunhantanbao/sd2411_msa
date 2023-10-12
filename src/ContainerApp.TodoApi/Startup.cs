@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using ContainerApp.TodoApi.Models;
 using ContainerApp.TodoApi.Repository;
 using ContainerApp.TodoApi.Repository.Interfaces;
+using System.Collections;
 
 namespace ContainerApp.TodoApi
 {
@@ -29,6 +30,10 @@ namespace ContainerApp.TodoApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            foreach (DictionaryEntry e in System.Environment.GetEnvironmentVariables())
+            {
+                Console.WriteLine("ENVIRONMENT VAR: " + e.Key.ToString() + "=" + e.Value?.ToString());
+            }
             string connectionString = Environment.GetEnvironmentVariable("MYDBCONTEXT") ?? Configuration["MyDbContext"];
             services.AddDbContext<MyDbContext>(options =>
             {
