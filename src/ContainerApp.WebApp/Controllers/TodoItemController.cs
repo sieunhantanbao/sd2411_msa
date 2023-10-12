@@ -16,12 +16,12 @@ namespace ContainerApp.WebApp.Controllers
     public class TodoItemController : Controller
     {
         private readonly ILogger<TodoItemController> _logger;
-        private readonly IConfiguration _config;
+        private readonly string _todoAPI;
         private static readonly HttpClient client = new HttpClient();
 
         public TodoItemController(ILogger<TodoItemController> logger, IConfiguration config)
         {
-            _config = config;
+            _todoAPI = Environment.GetEnvironmentVariable("ApiAddress") ?? config["ApiAddress"].ToString();
             _logger = logger;
         }
 
@@ -36,7 +36,7 @@ namespace ContainerApp.WebApp.Controllers
 
                 using (var httpClient = new HttpClient())
                 {
-                    _urlApi = _config["ApiAddress"].ToString() + "/api/TodoItems";
+                    _urlApi = _todoAPI + "/api/TodoItems";
                     _logger.LogInformation("URL API = " + _urlApi);
 
                     using (var response = await httpClient.GetAsync( _urlApi))
@@ -73,7 +73,7 @@ namespace ContainerApp.WebApp.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    string _urlApi = _config["ApiAddress"].ToString() + "/api/TodoItems";
+                    string _urlApi = _todoAPI + "/api/TodoItems";
                     _logger.LogInformation("URL API = " + _urlApi);
                     _logger.LogInformation("MODEL = " + JsonConvert.SerializeObject(model));
 
@@ -114,7 +114,7 @@ namespace ContainerApp.WebApp.Controllers
 
             using (var httpClient = new HttpClient())
             {
-                _urlApi = _config["ApiAddress"].ToString() + "/api/TodoItems/" + id;
+                _urlApi = _todoAPI + "/api/TodoItems/" + id;
                 _logger.LogInformation("URL API = " + _urlApi);
 
                 using (var response = await httpClient.GetAsync( _urlApi))
@@ -135,7 +135,7 @@ namespace ContainerApp.WebApp.Controllers
 
             using (var httpClient = new HttpClient())
             {
-                _urlApi = _config["ApiAddress"].ToString() + "/api/TodoItems/" + id;
+                _urlApi = _todoAPI + "/api/TodoItems/" + id;
                 _logger.LogInformation("URL API = " + _urlApi);
 
                 using (var response = await httpClient.GetAsync( _urlApi))
@@ -158,7 +158,7 @@ namespace ContainerApp.WebApp.Controllers
 
                 if (id > 0 )
                 {
-                    string _urlApi = _config["ApiAddress"].ToString() + "/api/TodoItems/" + id;
+                    string _urlApi = _todoAPI + "/api/TodoItems/" + id;
                     _logger.LogInformation("URL API = " + _urlApi);
                     _logger.LogInformation("MODEL = " + JsonConvert.SerializeObject(model));
 
@@ -198,7 +198,7 @@ namespace ContainerApp.WebApp.Controllers
 
             using (var httpClient = new HttpClient())
             {
-                _urlApi = _config["ApiAddress"].ToString() + "/api/TodoItems/" + id;
+                _urlApi = _todoAPI + "/api/TodoItems/" + id;
                 _logger.LogInformation("URL API = " + _urlApi);
 
                 using (var response = await httpClient.GetAsync( _urlApi))
@@ -221,7 +221,7 @@ namespace ContainerApp.WebApp.Controllers
                 
                 if (ModelState.IsValid)
                 {
-                    string _urlApi = _config["ApiAddress"].ToString() + "/api/TodoItems/" + id;
+                    string _urlApi = _todoAPI + "/api/TodoItems/" + id;
                     _logger.LogInformation("URL API = " + _urlApi);
                     _logger.LogInformation("MODEL = " + JsonConvert.SerializeObject(model));
 
