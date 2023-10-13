@@ -64,7 +64,6 @@ namespace ContainerApp.WebApp.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(TodoItemModel model)
         {
             try
@@ -148,7 +147,6 @@ namespace ContainerApp.WebApp.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int id, TodoItemModel model)
         {
             try
@@ -211,7 +209,6 @@ namespace ContainerApp.WebApp.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id, TodoItemModel model)
         {
             try
