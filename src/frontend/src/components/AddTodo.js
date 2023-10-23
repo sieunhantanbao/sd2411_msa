@@ -27,6 +27,7 @@ export default class AddTodo extends React.Component {
         <button className="btn btn-primary" type="submit">
           Add Todo Updated
         </button>
+        <p>List:</p>
       </form>
     );
   }
