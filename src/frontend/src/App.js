@@ -44,6 +44,8 @@ export default class App extends React.Component {
               <h1>Todos</h1>
               <div className="todo-app">
                 <AddTodo handleAddTodo={this.handleAddTodo} />
+                <br/>
+                <h5>Data</h5>
                 <TodoList todos={this.state.todos} />
               </div>
             </div>
